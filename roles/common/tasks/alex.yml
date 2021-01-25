@@ -1,0 +1,25 @@
+---
+  - name: Update alex password
+    user:
+            name: alex
+            state: present
+            password: "{{ ssh_password }}"
+    become: yes
+
+  - name: Setup SSH dir for alex
+    file:
+            path: "/home/{{ item }}/.ssh"
+            state: directory
+            owner: "{{ item }}"
+            group: "{{ item }}"
+            mode: 0700
+    loop:
+      - alex
+
+  - name: Push out SSH keys for alex
+    copy:
+            src: authorized_keys
+            dest: "/home/{{ item }}/.ssh/authorized_keys"
+            owner: "{{ item }}"
+    loop:
+      - alex

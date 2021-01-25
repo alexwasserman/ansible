@@ -1,0 +1,18 @@
+---
+
+  - name: Pihole Update Cron
+    cron:
+      hour: 1
+      minute: 0
+      job: "sudo pihole -up"
+      name: "Pihole nightly update"
+      state: present
+  
+  - name: Dilbert cron
+    cron:
+      hour: 4
+      minute: 0
+      job: >
+        /usr/bin/curl -L -s --output /tmp/dilbert.gif $(/usr/bin/curl -L -s http://dilbert.com/strip/$(date +\%Y-\%m-\%d) | grep src | grep "assets.amuniversal.com" | grep "Dilbert by" | awk -F\" '{ print $10 }') && /usr/bin/mutt alex@alexwasserman.com -s "Daily Dilbert" -a /tmp/dilbert.gif < /dev/null
+      name: Dilbert Daily Email
+      state: present

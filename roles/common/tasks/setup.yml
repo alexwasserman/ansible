@@ -1,0 +1,16 @@
+---
+  - name: Set Hostname
+    hostname:
+            name: "{{ inventory_hostname }}"
+    become: yes
+
+  - name: Disable SSH via passwords
+    lineinfile:
+            path: /etc/ssh/sshd_config
+            state: present
+            regexp: '^#PasswordAuthentication|^PasswordAuthentication yes'
+            insertafter: '^#PasswordAuthentication|^PasswordAuthentication yes'
+            line: PasswordAuthentication no
+    notify:
+            - Restart sshd
+    become: yes

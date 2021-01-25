@@ -1,0 +1,17 @@
+---
+
+ - include: setup.yml
+ - include: alex.yml
+   when: '"general" in group_names'
+ - include: upgrade.yml
+   when: ansible_facts['os_family'] == "Debian"
+
+ - name: Reboot when needed after update
+   command:
+     cmd: shutdown -r now 'Rebooting to complete system upgrade'
+     removes: /var/run/reboot-required
+   become: yes
+   when: ansible_facts['os_family'] == "Debian"
+
+
+

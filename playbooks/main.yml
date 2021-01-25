@@ -1,0 +1,22 @@
+---
+
+- name: Apply common configuration to all hosts
+  hosts: all
+  remote_user: alex
+  tags: main
+  roles:
+    - common
+
+- name: Photoframe specific configuration for photo frames
+  hosts: photos
+  remote_user: pi
+  tags: photos
+  roles:
+    - photo_frame
+
+- name: Happy Specific Setup
+  hosts: happy.local.alexwasserman.com
+  tags: happy
+  remote_user: alex
+  roles:
+    - happy

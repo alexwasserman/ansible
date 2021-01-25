@@ -1,0 +1,15 @@
+general:
+  hosts:
+    happy.local.alexwasserman.com:
+    smiley.local.alexwasserman.com:
+    vps.alexwasserman.com:
+
+photos:
+  hosts:
+    zero[1:4].local.alexwasserman.com
+  vars: 
+    ansible_user: pi
+
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

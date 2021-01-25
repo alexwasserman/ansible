@@ -1,0 +1,90 @@
+---
+  - name: Update Pi password
+    user:
+            name: pi
+            state: present
+            password: "{{ ssh_password }}"
+    become: yes
+
+  - name: Passwordless sudo for photos
+    lineinfile:
+            line: '%sudo   ALL=(ALL:ALL) NOPASSWD:ALL'
+            state: present
+            regexp: '^%sudo'
+            path: /etc/sudoers
+            validate: 'visudo -cf %s'
+    become: yes
+
+  - name: Set boot behaviour
+    shell: "sudo raspi-config nonint do_boot_behaviour B2"
+
+  - name: Push out photos
+    unarchive:
+            src: icloud_photos.tgz
+            dest: /home/pi
+            owner: pi
+            group: pi
+            mode: 0600
+
+  - name: Fix photos archive perms
+    file:
+            path: /home/pi/icloud_photos
+            state: directory
+            owner: pi
+            group: pi
+            mode: u=rwX,g=r,o=r
+            recurse: yes
+
+  - name: Install X via Apt
+    apt:
+            name: "{{ item }}"
+            state: present
+    loop:
+            - libexif12
+            - qt5-default
+            - xinit
+    become: yes
+
+  - name: Get Slide software
+    unarchive:
+            creates: slide_0.9.5/slide
+            dest: /home/pi
+            owner: pi
+            group: pi
+            remote_src: yes
+            src: https://github.com/NautiluX/slide/releases/download/v0.9.5/slide_rpi_0.9.5.tar.gz
+
+  - name: Make executable
+    file:
+            path: /home/pi/slide_0.9.5/slide
+            mode: 0700
+    become: yes
+
+  - name: Update XWrapper to allow anybody
+    lineinfile:
+            path: /etc/X11/Xwrapper.config
+            state: present
+            regexp: '^allowed_users='
+            line: allowed_users=anybody
+    become: yes
+
+  - name: Add startx to bashrc
+    lineinfile:
+            path: /home/pi/.bashrc
+            state: present
+            regexp: 'startx'
+            line: '[ ! -n "${SSH_CONNECTION}"  ] && startx'
+            insertafter: EOF
+
+  - name: Create .xinitrc file
+    copy: 
+            src: xinitrc
+            dest: /home/pi/.xinitrc
+            owner: pi
+            group: pi
+            mode: 0600
+
+  - name: Reboot photo frames
+    reboot:
+    tags: reboot
+    become: yes
