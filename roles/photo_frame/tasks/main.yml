@@ -6,6 +6,12 @@
             password: "{{ ssh_password }}"
     become: yes
 
+  - name: remove alex
+    user:
+            name: alex
+            state: absent
+    become: yes
+
   - name: Passwordless sudo for photos
     lineinfile:
             line: '%sudo   ALL=(ALL:ALL) NOPASSWD:ALL'
@@ -25,6 +31,8 @@
             owner: pi
             group: pi
             mode: 0600
+    tags:
+      - scp
 
   - name: Fix photos archive perms
     file:
@@ -83,6 +91,13 @@
             owner: pi
             group: pi
             mode: 0600
+
+  - name: Nightly reboot cron
+    cron: 
+      name: "Night reboot"
+      minute: "0"
+      hour: "4"
+      job: "sudo reboot"
 
   - name: Reboot photo frames
     reboot:

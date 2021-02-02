@@ -6,12 +6,15 @@
  - include: upgrade.yml
    when: ansible_facts['os_family'] == "Debian"
 
- - name: Reboot when needed after update
-   command:
-     cmd: shutdown -r now 'Rebooting to complete system upgrade'
-     removes: /var/run/reboot-required
+ - name: Check if we need to reboot
+   stat: 
+     path: /var/run/reboot-required
+   register: reboot_required 
+
+ - name: Reboot if needed after update
+   reboot:
+     connect_timeout: 300
+     post_reboot_delay: 180
+   tags: reboot
    become: yes
-   when: ansible_facts['os_family'] == "Debian"
-
-
-
+   when: ansible_facts['os_family'] == "Debian" and reboot_required.stat.exists == True
