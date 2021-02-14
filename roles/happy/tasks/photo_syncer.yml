@@ -1,0 +1,16 @@
+---
+  - name: Photo Syncer Cron
+    cron:
+      hour: 2
+      minute: 0
+      job: "chronic /home/alex/photo_sync/photo_sync.sh"
+      name: "Photo Syncer Cron"
+      state: present
+
+  - name: Photo Syncer Ansible Run
+    cron:
+      hour: 3
+      minute: 0
+      job: "cd /home/alex/ansible; chronic ansible-playbook ~/home/alex/playbooks/main.yml -l photos"
+      name: "Photo Syncer Ansible Run"
+      state: present
