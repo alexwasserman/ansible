@@ -20,3 +20,11 @@
   remote_user: alex
   roles:
     - happy
+
+- name: Plexi Specifix Setup
+  hosts: plexi.local.alexwasserman.com
+  tags: plexi
+  remote_user: alex
+  roles:
+    - timemachine
+    - ddclient
