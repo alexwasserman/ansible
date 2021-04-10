@@ -1,0 +1,25 @@
+---
+  - name: Push out ddclient binary
+    copy:
+      src: ddclient
+      dest: /sbin/ddclient
+      owner: root
+      group: root
+      mode: 0755
+    become: yes
+
+  - name: Push out ddclient config
+    copy:
+      src: ddclient.conf
+      dest: /etc/ddclient/ddclient.conf
+      owner: root
+      group: root
+      mode: 0600
+    become: yes
+
+  - name: Register and start ddclient
+    service:
+      name: ddclient
+      state: restarted
+      enabled: yes
+    become: yes

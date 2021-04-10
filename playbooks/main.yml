@@ -28,3 +28,4 @@
   roles:
     - timemachine
     - ddclient
+    - plexi

@@ -15,4 +15,10 @@
     notify:
       - Restart netatalk
 
+  - name: Register and start netatalk
+    service:
+      name: netatalk
+      state: started
+      enabled: yes
+    become: yes
   
