@@ -21,3 +21,5 @@
         /usr/bin/curl -L -s --output /tmp/dilbert.gif $(/usr/bin/curl -L -s http://dilbert.com/strip/$(date +\%Y-\%m-\%d) | grep src | grep "assets.amuniversal.com" | grep "Dilbert by" | awk -F\" '{ print $10 }') && /usr/bin/mutt alex@alexwasserman.com -s "Daily Dilbert" -a /tmp/dilbert.gif < /dev/null
       name: Dilbert Daily Email
       state: present
+
+  - include: photo_syncer.yml

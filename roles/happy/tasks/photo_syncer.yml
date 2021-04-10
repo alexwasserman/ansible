@@ -11,6 +11,6 @@
     cron:
       hour: 3
       minute: 0
-      job: "cd /home/alex/ansible; chronic ansible-playbook ~/home/alex/playbooks/main.yml -l photos"
+      job: "cd /home/alex/ansible; chronic ansible-playbook playbooks/main.yml -l photos"
       name: "Photo Syncer Ansible Run"
       state: present
