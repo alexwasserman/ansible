@@ -3,6 +3,7 @@
     apt:
       name: zsh
       state: present 
+    become: yes
 
   - name: Update alex password
     user:
@@ -33,12 +34,12 @@
   - name: Get shell defaults
     copy:
       src: shellrc
-h     dest: /home/alex/.shellrc
+      dest: /home/alex/.shellrc
       owner: alex
       group: alex
 
   - name: Get shell defaults
     copy:
       src: zshrc
-h     dest: /home/alex/.zshrc
+      dest: /home/alex/.zshrc
       owner: alex

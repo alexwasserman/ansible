@@ -2,24 +2,27 @@
   - name: ensure plex group
     group:
       name: plex
-      state: plex
+      state: present
     become: true
 
   - name: Install apt-transport-https
     apt:
       name: apt-transport-https
       state: present
+    become: yes
 
   - name: Add Plex apt key (Ubuntu & Debian with systemd)
     apt_key:
       url: https://downloads.plex.tv/plex-keys/PlexSign.key
       state: present
+    become: yes
 
   - name: Add Plex apt repo (Ubuntu & Debian with systemd)
     apt_repository:
       repo: deb https://downloads.plex.tv/repo/deb public main
       state: present
     changed_when: false
+    become: yes
 
   - name: Apt install Plex
     apt:
@@ -27,6 +30,7 @@
       state: present
       update_cache: true
     notify: restart plex
+    become: yes
 
   - name: Install default preferences file
     copy:
@@ -35,9 +39,11 @@
       owner: plex
       group: plex
       mode: 0600
+    become: yes
 
   - name: Autostart Plex and start service
     service:
       name: plexmediaserver
       enabled: true
     notify: restart plex
+    become: yes

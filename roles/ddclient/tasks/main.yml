@@ -1,4 +1,16 @@
 ---
+
+  - name: Install ddclient with Apt
+    apt:
+      name: ddclient
+    become: yes
+
+  - name: remove apt default ddclient config
+    file:
+      path: /etc/ddclient.conf
+      state: absent
+    become: yes
+
   - name: Push out ddclient binary
     copy:
       src: ddclient
@@ -6,6 +18,24 @@
       owner: root
       group: root
       mode: 0755
+    become: yes
+
+  - name: Push out ddclient defaults
+    copy:
+      src: ddclient.defaults
+      dest: /etc/default/ddclient
+      owner: root
+      group: root
+      mode: 0600
+    become: yes
+
+  - name: DDClient etc directory
+    file:
+      path: /etc/ddclient
+      owner: root
+      group: root
+      mode: 0600
+      state: directory
     become: yes
 
   - name: Push out ddclient config
