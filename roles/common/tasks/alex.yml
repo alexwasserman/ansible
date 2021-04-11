@@ -1,18 +1,24 @@
 ---
+  - name: Install ZSH
+    apt:
+      name: zsh
+      state: present 
+
   - name: Update alex password
     user:
-            name: alex
-            state: present
-            password: "{{ ssh_password }}"
+      name: alex
+      state: present
+      password: "{{ ssh_password }}"
+      shell: /usr/bin/zsh
     become: yes
 
   - name: Setup SSH dir for alex
     file:
-            path: "/home/{{ item }}/.ssh"
-            state: directory
-            owner: "{{ item }}"
-            group: "{{ item }}"
-            mode: 0700
+      path: "/home/{{ item }}/.ssh"
+      state: directory
+      owner: "{{ item }}"
+      group: "{{ item }}"
+      mode: 0700
     loop:
       - alex
 
@@ -23,3 +29,16 @@
             owner: "{{ item }}"
     loop:
       - alex
+
+  - name: Get shell defaults
+    copy:
+      src: shellrc
+h     dest: /home/alex/.shellrc
+      owner: alex
+      group: alex
+
+  - name: Get shell defaults
+    copy:
+      src: zshrc
+h     dest: /home/alex/.zshrc
+      owner: alex

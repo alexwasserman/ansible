@@ -1,0 +1,53 @@
+##
+## Personal settings
+## Bunch of settings suitable for sourcing into both bash and zsh
+## 
+
+# Fix PATH
+export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin/'
+
+ # Preferred editor for local and remote sessions
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='vim'
+ fi
+
+## Personal alises
+alias vim="vi"
+alias less="cless"
+
+## SSH Aliases
+alias josh="ssh kano@joshkano"
+alias vps="ssh vps.alexwasserman.com"
+
+# Brew Github API Token
+export HOMEBREW_GITHUB_API_TOKEN='{{ $homebrew_github_token }}'
+
+## ZSH Brew add-ons
+
+# Auto-suggestions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+
+## OSX Brew ZSH Add-ons
+
+# History Search
+test -e "/usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh" && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# Nav tools
+test -e "/usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh" && source /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
+
+# Syntax highlighting
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+test -e "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Auto-suggestions
+test -e "/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# ZSH Syntax highlighting
+test -e "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# iTerm2 Shell integrations for ZSH
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
