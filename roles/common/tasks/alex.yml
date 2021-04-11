@@ -1,9 +1,32 @@
 ---
-  - name: Install ZSH
-    apt:
-      name: zsh
-      state: present 
+  - name: install dependencies
+    become: "{{ ansible_distribution != 'MacOSX' }}"
+    package:
+      name:
+        - git
+        - zsh
+      state: present
+
+  - name: clone oh-my-zsh for users
+    tags:
+     # Suppress warning: [ANSIBLE0006] git used in place of git module
+      # Git module doesn't allow us to set `core.autocrlf=input`.
+      - skip_ansible_lint
     become: yes
+    become_user: alex
+    # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
+    command: 'git clone -c core.autocrlf=input --depth=1 https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh'
+    args:
+      chdir: /home/alex
+      creates: '/home/alex/.oh-my-zsh'
+
+  - name: Install My ZSH theme
+    copy: 
+      src: mytheme.zsh-theme
+      dest: /home/alex/.oh-my-zsh/custom/themes/mytheme.zsh-theme
+      owner: alex
+      group: alex
+      mode: 0600
 
   - name: Update alex password
     user:

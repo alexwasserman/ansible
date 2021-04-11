@@ -1,13 +1,16 @@
 ---
-  - name: ensure plex group
-    group:
-      name: plex
-      state: present
-    become: true
+
+  - import_tasks: zfs.yml
 
   - name: Install apt-transport-https
     apt:
       name: apt-transport-https
+      state: present
+    become: yes
+
+  - name: Install OpenCL hardware transcoding library
+    apt:
+      name: ocl-icd-libopencl1
       state: present
     become: yes
 
@@ -34,8 +37,8 @@
 
   - name: Install default preferences file
     copy:
-      src: preferences.xml
-      dest: /var/lib/plexmediaserver/Library/Application Support/Plex Media Server/
+      src: Preferences.xml
+      dest: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Preferences.xml"
       owner: plex
       group: plex
       mode: 0600
