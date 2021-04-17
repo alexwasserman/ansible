@@ -21,18 +21,19 @@
             validate: 'visudo -cf %s'
     become: yes
 
+  - name: Fix SSH
+    lineinfile:
+      line: 'IPQoS cs0 cs0'
+      state: present
+      regexp: 'IPQoS cs0 cs0'
+      path: /etc/ssh/sshd_config
+      insertafter: EOF
+    become: yes
+    notify:
+      - Restart sshd
+
   - name: Set boot behaviour
     shell: "sudo raspi-config nonint do_boot_behaviour B2"
-
-  - name: Push out photos
-    unarchive:
-            src: icloud_photos.tgz
-            dest: /home/pi
-            owner: pi
-            group: pi
-            mode: 0600
-    tags:
-      - scp
 
   - name: Fix photos archive perms
     file:
@@ -99,7 +100,10 @@
       hour: "4"
       job: "sudo reboot"
 
-  - name: Reboot photo frames
-    reboot:
-    tags: reboot
-    become: yes
+  - name: Wireless power management cron
+    cron: 
+      name: "wlconfig"
+      special_time: reboot
+      state: present
+      job: "sudo iwconfig wlan0 power off"
+
