@@ -11,7 +11,7 @@
       dest: /etc/netatalk/afp.conf
       owner: root
       group: root
-      mode: 0600
+      mode: 0644
     become: yes
     notify:
       - Restart netatalk

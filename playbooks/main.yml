@@ -21,9 +21,9 @@
   roles:
     - happy
 
-- name: Plexi Specifix Setup
-  hosts: plexi.local.alexwasserman.com
-  tags: plexi
+- name: Smiley Specifix Setup
+  hosts: smiley.local.alexwasserman.com
+  tags: smiley
   remote_user: alex
   roles:
     - timemachine
