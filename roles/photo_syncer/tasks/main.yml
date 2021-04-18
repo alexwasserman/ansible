@@ -1,0 +1,25 @@
+---
+  - name: Photo Syncer Cron
+    cron:
+      hour: 2
+      minute: 0
+      job: "chronic /home/alex/scripts/photo_syncher.sh"
+      name: "Photo Syncer Cron"
+      state: present
+
+
+  - name: Create scripts
+    file:
+      path: /home/alex/scripts/
+      owner: alex
+      group: alex
+      mode: 0700
+      state: directory
+
+  - name: Push out script
+    copy:
+      src: photo_syncher.sh
+      dest: /home/alex/scripts/photo_syncher.sh
+      owner: alex
+      group: alex
+      mode: 0700
