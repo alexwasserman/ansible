@@ -21,7 +21,7 @@
   roles:
     - happy
 
-- name: Smiley Specifix Setup
+- name: Smiley Specific Setup
   hosts: smiley.local.alexwasserman.com
   tags: smiley
   remote_user: alex
@@ -29,3 +29,4 @@
     - timemachine
     - ddclient
     - plex
+    - photo_syncer

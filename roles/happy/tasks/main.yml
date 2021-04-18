@@ -22,4 +22,3 @@
       name: Dilbert Daily Email
       state: present
 
-  - include: photo_syncer.yml
