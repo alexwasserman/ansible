@@ -1,0 +1,8 @@
+#!/bin/bash
+# /etc/rc.local
+
+/etc/sysctl.d
+/etc/init.d/procps restart
+
+exit 0
+

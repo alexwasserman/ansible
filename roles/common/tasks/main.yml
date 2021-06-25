@@ -3,6 +3,8 @@
  - include: setup.yml
  - include: alex.yml
    when: '"general" in group_names'
+ - include: ubuntu.yml
+   when: ansible_facts['os_family'] == "Debian"
  - include: upgrade.yml
    when: ansible_facts['os_family'] == "Debian"
 

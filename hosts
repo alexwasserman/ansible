@@ -5,10 +5,11 @@ general:
     vps.alexwasserman.com:
     messy.local.alexwasserman.com:
     crafty.local.alexwasserman.com:
+    pie.local.alexwasserman.com:
 
 photos:
   hosts:
-    zero[1:4].local.alexwasserman.com
+    zero[1:3].local.alexwasserman.com
   vars: 
     ansible_user: pi
 
