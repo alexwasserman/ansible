@@ -31,8 +31,7 @@
   - name: Install starship
     ansible.builtin.command: sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     become: yes
-    args:
-        creates: /usr/local/bin/starship
+    creates: /usr/local/bin/starship
 
   - name: Install starship toml config file
     copy: 
