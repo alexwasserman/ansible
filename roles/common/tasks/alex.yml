@@ -29,7 +29,8 @@
       mode: 0600
 
   - name: Install starship
-    ansible.builtin.command: sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    command: sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    args:
       creates: /usr/local/bin/starship
     become: yes
 
