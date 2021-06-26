@@ -32,7 +32,9 @@
     get_url:
       url: https://starship.rs/install.sh
       dest: /tmp/starship_install.sh
-      mode: 755
+      mode: 700
+      owner: root
+      group: root
 
   - name: Install starship
     command: /tmp/starship_install.sh
