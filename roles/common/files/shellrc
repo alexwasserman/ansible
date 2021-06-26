@@ -51,3 +51,7 @@ test -e "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" &
 # iTerm2 Shell integrations for ZSH
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+export STARSHIP_CONFIG=~/.starship.toml
+
+eval "$(starship init zsh)"
+

@@ -1,0 +1,50 @@
+# Use custom format
+
+
+format = """
+$username@$hostname $directory $git_status $git_branch
+$jobs$cmd_duration$character
+"""
+
+[username]
+style_user = "blue"
+style_root = "yellow"
+format = "[$user]($style)"
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format =  "[$hostname](yellow)"
+# trim_at = ".companyname.com"
+disabled = false
+
+[directory]
+#truncation_length = 8
+truncation_symbol = "…/"
+format = '[\[ $path \]]($style)'
+home_symbol = "~"
+read_only_style = "red"
+
+[git_branch]
+truncation_length = 4
+truncation_symbol = ""
+format = '[$symbol $branch](green)'
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+# ahead = "⇡${count}"
+# diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+# behind = "⇣${count}"
+
+[jobs]
+symbol = "+"
+threshold = 1
+format = '[Jobs: $symbol$number ](red)'
+
+[cmd_duration]
+format = '[took $duration ](green)'
+
+[character]
+success_symbol = "[➜](green) "
+error_symbol = "[✗](bold red) "

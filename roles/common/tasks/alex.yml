@@ -28,6 +28,26 @@
       group: alex
       mode: 0600
 
+  - name: Install starship
+    ansible.builtin.command: sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    become: yes
+
+  - name: Install starship toml config file
+    copy: 
+      src: starship.toml
+      dest: /home/alex/.starship.toml
+      owner: alex
+      group: alex
+      mode: 0600
+
+  - name: Install starship toml config file
+    copy: 
+      src: starship.toml
+      dest: /home/alex/.starship.toml
+      owner: alex
+      group: alex
+      mode: 0600
+
   - name: Update alex password
     user:
       name: alex
