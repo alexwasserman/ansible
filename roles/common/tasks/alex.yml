@@ -28,8 +28,14 @@
       group: alex
       mode: 0600
 
+  - name: Get Starship installer
+    get_url:
+      url: https://starship.rs/install.sh
+      dest: /tmp/starship_install.sh
+      mode: 755
+
   - name: Install starship
-    command: sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    command: /tmp/starship_install.sh
     args:
       creates: /usr/local/bin/starship
     become: yes
